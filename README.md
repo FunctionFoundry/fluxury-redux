@@ -1,9 +1,13 @@
 # fluxury-redux
 
-## quickstart
+## Quick Start
 
 ```sh
 npm install --save fluxury-redux
+```
+
+```js
+import { createReducer } from 'fluxury-redux'
 ```
 
 ## summary
