@@ -52,5 +52,5 @@ var MessageCountStore = createStore(
   }
 )
 
-var store = createReduxStore( createReducer(todosStore) )
+var store = createReduxStore( createReducer(MessageStore, MessageCountStore) )
 ```
