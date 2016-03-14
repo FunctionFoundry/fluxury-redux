@@ -9,23 +9,33 @@ Redux has done a lot to promote function programming and this library will enabl
 Integrate Fluxury with the Redux ecosystem.
 
 ```js
-const createFluxStore = require('fluxury').createStore,
-createStore = require('redux'),
+const createStore = require('fluxury').createStore,
+createReduxStore = require('redux'),
 createReducer = require('fluxury-redux')
 
-todosStore = createFluxStore('TodosStore', [], {
-  setTodo: (state, data) => {
-    var newState = state.map(n => n)
-    newState[data.id] = data
-    return newState
-  },
-  markDone: (state, data) => state.map(n =>
-    n.id === data ?
-    Object.assign({}, n, { done: true}) : n),
-  trashTodo: (state, data) => state.map(n =>
-    n.id === data ?
-    Object.assign({}, n, { __trash: true}) : n)
+var MessageStore = createStore('MessageStore', [], function(state, action) {
+  switch(action.type) {
+    case 'loadMessage':
+    return state.concat(action.data)
+    default:
+    return state
+  }
 })
 
-var store = createStore( createReducer(todosStore) )
+var MessageCountStore = createStore(
+  'MessageCountStore',
+  0,
+  function(state, action, waitFor) {
+    // ensure that MessageStore reducer is executed before continuing
+    waitFor([MessageStore.dispatchToken])
+    switch(action.type) {
+      case 'loadMessage':
+      return state+1
+      default:
+      return state
+    }
+  }
+)
+
+var store = createReduxStore( createReducer(todosStore) )
 ```
