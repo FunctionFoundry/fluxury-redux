@@ -1,8 +1,8 @@
 {
   "name": "fluxury-redux",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Connect fluxury stores to redux ecosystem.",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "build": "babel index.js -o lib/index.js",
     "bundle": "browserify -g uglifyify ./lib/index.js > dist/fluxury-redux.js",
