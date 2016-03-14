@@ -10,7 +10,7 @@ npm install --save fluxury-redux
 import { createReducer } from 'fluxury-redux'
 ```
 
-## summary
+## Summary
 
 Compose Fluxury stores into a Redux reducer. This integrates the Facebook dispatcher with the single store concept in Redux. Internally it implements a Fluxury store that updates when any of the Fluxury stores that it tracks changes. I named it StoreStore.
 
