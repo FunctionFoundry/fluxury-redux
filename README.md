@@ -18,8 +18,6 @@ This lets you use the Facebook style "waitFor" to enforce the order to execute t
 
 Redux has done a lot to promote function programming and this library will enable you to use Fluxury in combination with the rich ecosystem developing around Redux.
 
-Integrate Fluxury with the Redux ecosystem.
-
 ## Example
 
 ```js
