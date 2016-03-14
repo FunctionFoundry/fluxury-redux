@@ -22,8 +22,8 @@ Redux has done a lot to promote function programming and this library will enabl
 
 ```js
 var createStore = require('fluxury').createStore
-var createReducer = require('./lib/index').createReducer
 var createReduxStore = require('redux').createStore
+var createReducer = require('fluxury-redux').createReducer
 
 var MessageStore = createStore(
   'Messages Store',
