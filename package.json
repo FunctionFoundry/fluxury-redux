@@ -1,6 +1,6 @@
 {
   "name": "fluxury-redux",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Connect fluxury stores to redux ecosystem.",
   "main": "lib/index.js",
   "scripts": {
@@ -38,6 +38,9 @@
     "webpack": "^1.12.9"
   },
   "dependencies": {
-    "fluxury": "^1.0.2"
+    "fluxury": "^1.0.2",
+    "redux": "^3.3.1",
+    "redux-logger": "^2.6.1",
+    "redux-thunk": "^2.0.1"
   }
 }
