@@ -1,5 +1,7 @@
 # fluxury-redux
 
+[![Circle CI](https://circleci.com/gh/FunctionFoundry/fluxury-redux/tree/master.svg?style=svg)](https://circleci.com/gh/FunctionFoundry/fluxury-redux/tree/master)
+
 ## Quick Start
 
 ```sh
