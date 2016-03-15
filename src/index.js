@@ -5,6 +5,7 @@ import createLogger from 'redux-logger';
 
 export function createReducer(...stores) {
 
+  let first = true;
   let dispatchTokens = stores.map(n => n.dispatchToken )
   let defaultState = []
 
@@ -27,12 +28,17 @@ export function createReducer(...stores) {
 
   })
 
-  return (state=stores.map( n => n.getState() ), action) => {
 
-    // replace the state in the fluxury stores with the redux state
-    stores.forEach((store, i) => {
-      store.replaceState(state[i])
-    })
+  return (state, action) => {
+
+    if (first) {
+      first = false;
+    } else {
+      // replace the state in the fluxury stores with the redux state
+      stores.forEach((store, i) => {
+        store.replaceState(state[i])
+      })
+    }
 
     // run the action against the stores
     dispatch(action)
