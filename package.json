@@ -38,6 +38,6 @@
     "webpack": "^1.12.9"
   },
   "dependencies": {
-    "fluxury": "^1.0.1"
+    "fluxury": "^1.0.2"
   }
 }
