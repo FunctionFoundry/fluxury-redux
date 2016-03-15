@@ -2,8 +2,6 @@ import { createStore, dispatch } from 'fluxury'
 import { applyMiddleware, createStore as createReduxStore } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
-import CountStore from './CountStore';
-import TodosStore from './TodosStore';
 
 export function createReducer(...stores) {
 
@@ -35,7 +33,7 @@ export function createReducer(...stores) {
   }
 }
 
-export function configureStore(...stores) {
+export function configureStore(...stores, accept='./src/stores') {
 
   let rootReducer = createReducer(...stores);
 
@@ -51,7 +49,7 @@ export function configureStore(...stores) {
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
-    module.hot.accept('./CountStore', () => {
+    module.hot.accept(accept, () => {
       const nextRootReducer = createReducer(...stores);
       store.replaceReducer(nextRootReducer);
     });
