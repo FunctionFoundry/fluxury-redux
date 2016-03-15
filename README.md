@@ -27,28 +27,24 @@ var createReducer = require('fluxury-redux').createReducer
 
 var MessageStore = createStore(
   'Messages Store',
-  [],
-  function(state, action) {
-  switch(action.type) {
-    case 'loadMessage':
-    return state.concat(action.data)
-    default:
-    return state
+  [], // initial state is empty array
+  {
+    // type is 'receiveMessage' and data is the message.
+    receiveMessage: (state, data) => state.concat(data)
   }
-})
+)
 
 var MessageCountStore = createStore(
   'Message Count Store',
   0,
   function(state, action, waitFor) {
-    // ensure that MessageStore reducer is executed before continuing
+    // ensure that MessageStore reducer is executed first
     waitFor([MessageStore.dispatchToken])
     switch(action.type) {
       case 'loadMessage':
       return state+1
-      default:
-      return state
     }
+    return state
   }
 )
 
