@@ -36,8 +36,7 @@ var MessageStore = createStore(
 
 var MessageCountStore = createStore(
   'Message Count Store',
-  0,
-  function(state, action, waitFor) {
+  function(state=0, action, waitFor) {
     // ensure that MessageStore reducer is executed first
     waitFor([MessageStore.dispatchToken])
     switch(action.type) {
