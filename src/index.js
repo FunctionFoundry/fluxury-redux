@@ -28,36 +28,16 @@ export function createReducer(...stores) {
   })
 
   return (state=stores.map( n => n.getState() ), action) => {
+
+    // replace the state in the fluxury stores with the redux state
+    stores.forEach((store, i) => {
+      store.replaceState(state[i])
+    })
+
+    // run the action against the stores
     dispatch(action)
+
+    // return the next state
     return StoreStore.getState()
   }
-}
-let accept = './src/stores'
-export function setStorePath(path) {
-  accept = path
-}
-
-export function configureStore(...stores) {
-
-  let rootReducer = createReducer(...stores);
-
-  const logger = createLogger({
-    collapsed: true,
-    predicate: () =>
-    process.env.NODE_ENV === `development`, // eslint-disable-line no-unused-vars
-  });
-
-  const middleware = applyMiddleware(thunkMiddleware, logger);
-  const createStore2 = middleware(createReduxStore)
-  const store = (window.devToolsExtension ? window.devToolsExtension()(createStore2) : createStore2)(rootReducer, []);
-
-  if (module.hot) {
-    // Enable Webpack hot module replacement for reducers
-    module.hot.accept(accept, () => {
-      const nextRootReducer = createReducer(...stores);
-      store.replaceReducer(nextRootReducer);
-    });
-  }
-
-  return store;
 }

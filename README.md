@@ -51,13 +51,3 @@ var MessageCountStore = createStore(
 
 var store = createReduxStore( createReducer(MessageStore, MessageCountStore) )
 ```
-
-## configureStore
-
-  An opinionated boilerplate setup for Redux. Creates a Redux store given
-  a list of Fluxury stores passed as arguments.
-
-```js
-import { configureStore } from 'fluxury-redux'
-export default configureStore(MessageCountStore, MessagesStore)
-```
