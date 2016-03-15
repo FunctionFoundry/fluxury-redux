@@ -1,10 +1,10 @@
 {
   "name": "fluxury-redux",
-  "version": "1.0.7",
+  "version": "1.1.0",
   "description": "Connect fluxury stores to redux ecosystem.",
   "main": "lib/index.js",
   "scripts": {
-    "build": "babel index.js -o lib/index.js",
+    "build": "babel src/index.js -o lib/index.js",
     "bundle": "browserify -g uglifyify ./lib/index.js > dist/fluxury-redux.js",
     "test": "node test",
     "all": "npm run build && npm test && npm run bundle"
@@ -37,9 +37,11 @@
     "uglifyify": "^3.0.1",
     "webpack": "^1.12.9"
   },
-  "dependencies": {
+  "peerDependencies": {
     "fluxury": "^1.0.2",
-    "redux": "^3.3.1",
+    "redux": "^3.3.1"
+  },
+  "dependencies": {
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.0.1"
   }
