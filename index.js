@@ -32,8 +32,12 @@ export function createReducer(...stores) {
     return StoreStore.getState()
   }
 }
+let accept = './src/stores'
+export function setStorePath(path) {
+  accept = path
+}
 
-export function configureStore(...stores, accept='./src/stores') {
+export function configureStore(...stores) {
 
   let rootReducer = createReducer(...stores);
 
