@@ -14,9 +14,11 @@ import { createReducer, createMasterStore } from 'fluxury-redux'
 
 ## Summary
 
-Compose Fluxury stores into a Redux reducer. This integrates the Facebook dispatcher with the single store concept in Redux.
+Redux-compatible Flux implementation; built on top of Facebook's Flux 2.0.2. Before 2.1 was published.
 
-This lets you use the Facebook style "waitFor" to enforce the order to execute the store handlers. The final result packaged into an array with an item for the state of each store.
+Compose Fluxury stores into a Redux reducer. This integrates the dispatcher with the single store concept.
+
+This lets you use the "waitFor" to enforce the order to execute the store handlers. The final result packaged into an array with an item for the state of each store.
 
 Redux has done a lot to promote function programming and this library will enable you to use Fluxury in combination with the rich ecosystem developing around Redux.
 
