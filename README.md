@@ -25,6 +25,8 @@ Redux has done a lot to promote function programming and this library enables yo
 Optionally, this library includes a `createMasterStore` which generates a Fluxury store which combines
 the results of multiple Fluxury stores into a single store.
 
+Also, see the [React-Fluxury](https://github.com/FunctionFoundry/react-fluxury) library.
+
 ## Example
 
 ```js
