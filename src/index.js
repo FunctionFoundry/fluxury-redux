@@ -1,29 +1,80 @@
 import { createStore, dispatch } from 'fluxury'
 
-export function createMasterStore(...stores) {
+function isMappedObject(...input) {
+  return (input.length === 1 &&
+    typeof input[0] === 'object' &&
+    typeof input[0].getState === 'undefined')
+}
+
+function getState(isMapped, ...input) {
+
+  if (isMappedObject(...input)) {
+    return Object.keys(input[0]).reduce((acc, key) => {
+      acc[key] = input[0][key].getState()
+      return acc;
+    }, {})
+  }
+
+  return input.map(n => n.getState())
+}
+
+function getStores(isMapped, ...input) {
+  if (isMapped) {
+      return Object.keys(input[0]).reduce((acc, key) => acc.concat(input[0][key]), [])
+  } else {
+    input.forEach( store => {
+      if (typeof store.getState !== 'function') {
+        if (console && console.log) {
+          console.log('ERROR: invalid store')
+        }
+      }
+    })
+    return input
+  }
+}
+
+export function createMasterStore(...input) {
+  let isMapped = isMappedObject(...input)
+  let defaultState = getState(isMapped, ...input)
+  let stores = getStores(isMapped, ...input)
 
   let dispatchTokens = stores.map(n => n.dispatchToken )
-  let defaultState = stores.map(n => n.getState())
 
   return createStore(
-    'StoreStore',
+    'Master Store',
     defaultState,
-    (state, action, waitFor) => {
+    (state=defaultState, action, waitFor) => {
 
       waitFor(dispatchTokens)
 
-      let newState = stores.map( n => n.getState() )
+      let newState = getState(isMapped, ...input)
 
-      // not changed
-      if (
-        state.length === newState.length &&
-        state.every( (n, i) => n === newState[i] )
-      ) {
-        return state
+      if (isMapped){
+
+        if ( Object.keys(input[0]).reduce(
+          (current, key) =>
+          (current && state[key] === newState[key]), true
+        )) {
+          return state;
+        }
+
+      } else {
+
+        // not changed
+        if (
+          state.length === newState.length &&
+          state.every( (n, i) => n === newState[i] )
+        ) {
+          return state
+        }
+
       }
 
       return newState
 
+    },
+    {
+      getState:(state) => getState(isMapped, ...state)
     }
   )
 
@@ -31,36 +82,27 @@ export function createMasterStore(...stores) {
 
 export function createReducer(...input) {
 
-  let stores,
-  store,
-  mode = 'array'
+  let isMapped = isMappedObject(...input)
+  let store = createMasterStore(...input)
+  let stores = getStores(isMapped, ...input)
 
-  if (input.length === 1 &&
-    typeof input[0] === 'object' &&
-    typeof input[0].getState === 'undefined') {
-      stores = Object.keys(input[0]).reduce((acc, key) => acc.concat(input[0][key]), [])
-      mode = 'object'
-  } else {
-    stores = input
-  }
+  return (state=store.getState(), action) => {
 
-  store = createMasterStore(...stores)
-
-  return (state, action) => {
-
-    if (typeof state === 'undefined') {
-      return stores.map(n => n.getState())
+    // Replace the state in each store with whatever comes from Redux
+    if (isMapped) {
+      Object.keys(input[0]).forEach(
+        key => {
+          input[0][key].replaceState(state[key])
+        }
+      )
+    } else {
+      stores.forEach(
+        (store, i) => store.replaceState(state[i])
+      )
     }
 
     // run the action against the stores
     dispatch(action)
-
-    if ( mode === 'object') {
-      return Object.keys(input[0]).reduce((acc, key) => {
-        acc[key] = input[0][key].getState()
-        return acc;
-      }, {})
-    }
 
     // return the next state
     return store.getState()

@@ -54,7 +54,7 @@ var store = createReduxStore( createReducer(MessageStore, MessageCountStore) )
 
 ## Create Master store
 
-A store to consolidate all stores into a single store, automatically.
+Combine multiple stores into a single store.
 
 ```js
 import { createMasterStore } from 'fluxury-redux'
@@ -63,6 +63,6 @@ import MessageCountStore from './MessageCountStore'
 
 var store = createMasterStore({
   messages: MessageStore,
-  messageCount: MessageCountStore
+  count: MessageCountStore
 })
 ```
