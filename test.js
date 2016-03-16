@@ -1,5 +1,7 @@
 var test = require('tape');
 
+process.env.NODE_ENV = 'development'
+
 test('compose redux reducer from fluxury stores', function(t) {
 
   var createStore = require('fluxury').createStore
@@ -104,14 +106,14 @@ test('compose redux reducer from fluxury stores', function(t) {
 })
 
 
-test('create master store from fluxury stores', function(t) {
+test('create store from fluxury stores', function(t) {
 
   // Single-store concept without Redux
   var createStore = require('fluxury').createStore
   var dispatch = require('fluxury').dispatch
-  var createMasterStore = require('./lib/index').createMasterStore
+  var createMasterStore = require('./lib/index').createStore
 
-  t.plan(1)
+  t.plan(2)
 
   var MessageStore = createStore(
     'MessageStore',
@@ -135,6 +137,10 @@ test('create master store from fluxury stores', function(t) {
 
   var store = createMasterStore( MessageCountStore, MessageStore )
 
+  t.deepEqual(Object.keys(store),
+    [ 'getState', 'name', 'dispatchToken', 'subscribe', 'replaceState', 'replaceReducer', 'dispatch' ]
+  )
+
   dispatch('loadMessage', 'Test Message' )
 
   t.deepEqual( store.getState(), [ 1, [ 'Test Message' ]])
@@ -142,12 +148,12 @@ test('create master store from fluxury stores', function(t) {
 })
 
 
-test('create master store from fluxury stores', function(t) {
+test('create store from fluxury stores', function(t) {
 
   // Single-store concept without Redux
   var createStore = require('fluxury').createStore
   var dispatch = require('fluxury').dispatch
-  var createMasterStore = require('./lib/index').createMasterStore
+  var createMasterStore = require('./lib/index').createStore
 
   t.plan(1)
 

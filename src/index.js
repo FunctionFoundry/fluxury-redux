@@ -1,4 +1,8 @@
-import { createStore, dispatch } from 'fluxury'
+// Author: Peter W Moresi
+// LICENSE: MIT
+// createStore returns a Redux compatible store on top of Flux 2.0.2 Dispatcher
+
+import { createStore as createFluxuryStore, dispatch } from 'fluxury'
 
 function isMappedObject(...input) {
   return (input.length === 1 &&
@@ -33,14 +37,14 @@ function getStores(isMapped, ...input) {
   }
 }
 
-export function createMasterStore(...input) {
+export function createStore(...input) {
   let isMapped = isMappedObject(...input)
   let defaultState = getState(isMapped, ...input)
   let stores = getStores(isMapped, ...input)
 
   let dispatchTokens = stores.map(n => n.dispatchToken )
 
-  return createStore(
+  return createFluxuryStore(
     'Master Store',
     defaultState,
     (state=defaultState, action, waitFor) => {
@@ -77,13 +81,12 @@ export function createMasterStore(...input) {
       getState:(state) => getState(isMapped, ...state)
     }
   )
-
 }
 
 export function createReducer(...input) {
 
   let isMapped = isMappedObject(...input)
-  let store = createMasterStore(...input)
+  let store = createStore(...input)
   let stores = getStores(isMapped, ...input)
 
   return (state=store.getState(), action) => {
