@@ -61,7 +61,7 @@ var store = createReduxStore( createReducer(MessageStore, MessageCountStore) )
 
 ## Create Store
 
-Combine multiple stores into a single store. Could possible be used to replace a Redux store. Needs testing...
+Combine multiple stores into a single store. Interface compatible with Redux.
 
 ```js
 import { createStore } from 'fluxury-redux'
