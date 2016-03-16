@@ -9,7 +9,7 @@ npm install --save fluxury-redux
 ```
 
 ```js
-import { createReducer, configureStore } from 'fluxury-redux'
+import { createReducer, createMasterStore } from 'fluxury-redux'
 ```
 
 ## Summary
@@ -50,4 +50,19 @@ var MessageCountStore = createStore(
 )
 
 var store = createReduxStore( createReducer(MessageStore, MessageCountStore) )
+```
+
+## Create Master store
+
+A store to consolidate all stores into a single store, automatically.
+
+```js
+import { createMasterStore } from 'fluxury-redux'
+import MessageStore from './MessageStore'
+import MessageCountStore from './MessageCountStore'
+
+var store = createMasterStore({
+  messages: MessageStore,
+  messageCount: MessageCountStore
+})
 ```
