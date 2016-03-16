@@ -106,14 +106,16 @@ test('create master store from fluxury stores', function(t) {
     'MessageStore',
     [],
     {
-      loadMessage: (state, data) => state.concat(data)
+      loadMessage: function(state, data) {
+        return state.concat(data)
+      }
     })
 
   var MessageCountStore = createStore(
     'MessageCountStore',
     0,
     {
-      loadMessage: (state, data, waitFor) => {
+      loadMessage: function(state, data, waitFor){
         waitFor([MessageStore.dispatchToken])
         return state+1
       }
