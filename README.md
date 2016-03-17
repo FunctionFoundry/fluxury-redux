@@ -14,7 +14,7 @@ import { createReducer, createStore } from 'fluxury-redux'
 
 ## Summary
 
-Redux-compatible reducer or composed stores without Redux; built on [Fluxury](https://github.com/FunctionFoundry/fluxury).
+Redux-compatible reducer and compose stores into larger objects; built on [Fluxury](https://github.com/FunctionFoundry/fluxury).
 
 Also, see the [React-Fluxury](https://github.com/FunctionFoundry/react-fluxury) library.
 
