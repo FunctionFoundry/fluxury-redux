@@ -18,7 +18,7 @@ Redux-compatible reducer and compose stores into larger objects; built on [Fluxu
 
 Also, see the [React-Fluxury](https://github.com/FunctionFoundry/react-fluxury) library.
 
-## Example
+## With Redux
 
 ```js
 var createStore = require('fluxury').createStore
@@ -50,7 +50,7 @@ var MessageCountStore = createStore(
 var store = createReduxStore( createReducer(MessageStore, MessageCountStore) )
 ```
 
-## Create Store
+## Without Redux
 
 Combine multiple stores into a single store. Interface compatible with Redux.
 
