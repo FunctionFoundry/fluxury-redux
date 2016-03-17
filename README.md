@@ -22,11 +22,11 @@ Also, see the [React-Fluxury](https://github.com/FunctionFoundry/react-fluxury) 
 
 ```js
 var createReduxStore = require('redux').createStore
-
 var createReducer = require('fluxury-redux').createReducer
 var MessageStore = require('./MessageStore')
 var MessageCountStore = requrie('./MessageCountStore')
 
+// will reduce to array with an item for each store
 var store = createReduxStore( createReducer(MessageStore, MessageCountStore) )
 ```
 
@@ -36,11 +36,13 @@ Combine multiple stores into a single store. Interface compatible with Redux.
 
 ```js
 import { createStore } from 'fluxury-redux'
-import messages from './MessageStore'
-import count from './MessageCountStore'
+import MessageStore from './MessageStore'
+import MessageCountStore from './MessageCountStore'
 
+// will reduce to an object where the stores for messages and count are
+// composed into a larger object with the same shape. Only supports 1 level.
 var store = createStore({
-  messages,
-  count
+  messages: MessageStore,
+  count: MessageCountStore
 })
 ```
