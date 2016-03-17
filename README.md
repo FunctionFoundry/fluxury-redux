@@ -5,7 +5,7 @@
 ## Quick Start
 
 ```sh
-npm install --save fluxury-redux
+npm install --save fluxury fluxury-redux
 ```
 
 ```js
