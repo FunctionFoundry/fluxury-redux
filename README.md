@@ -21,31 +21,11 @@ Also, see the [React-Fluxury](https://github.com/FunctionFoundry/react-fluxury) 
 ## With Redux
 
 ```js
-var createStore = require('fluxury').createStore
 var createReduxStore = require('redux').createStore
+
 var createReducer = require('fluxury-redux').createReducer
-
-var MessageStore = createStore(
-  'Messages Store',
-  [], // initial state is empty array
-  {
-    // type is 'receiveMessage' and data is the message.
-    receiveMessage: (state, data) => state.concat(data)
-  }
-)
-
-var MessageCountStore = createStore(
-  'Message Count Store',
-  function(state=0, action, waitFor) {
-    // ensure that MessageStore reducer is executed first
-    waitFor([MessageStore.dispatchToken])
-    switch(action.type) {
-      case 'loadMessage':
-      return state+1
-    }
-    return state
-  }
-)
+var MessageStore = require('./MessageStore')
+var MessageCountStore = requrie('./MessageCountStore')
 
 var store = createReduxStore( createReducer(MessageStore, MessageCountStore) )
 ```
