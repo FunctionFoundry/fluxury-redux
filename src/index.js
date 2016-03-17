@@ -91,17 +91,19 @@ export function createReducer(...input) {
 
   return (state=store.getState(), action) => {
 
-    // Replace the state in each store with whatever comes from Redux
-    if (isMapped) {
-      Object.keys(input[0]).forEach(
-        key => {
-          input[0][key].replaceState(state[key])
-        }
-      )
-    } else {
-      stores.forEach(
-        (store, i) => store.replaceState(state[i])
-      )
+    if (process.env.NODE_ENV === 'development') {
+      // Replace the state in each store with whatever comes from Redux
+      if (isMapped) {
+        Object.keys(input[0]).forEach(
+          key => {
+            input[0][key].replaceState(state[key])
+          }
+        )
+      } else {
+        stores.forEach(
+          (store, i) => store.replaceState(state[i])
+        )
+      }
     }
 
     // run the action against the stores
