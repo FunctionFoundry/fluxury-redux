@@ -36,11 +36,11 @@ Combine multiple stores into a single store. Interface compatible with Redux.
 
 ```js
 import { createStore } from 'fluxury-redux'
-import MessageStore from './MessageStore'
-import MessageCountStore from './MessageCountStore'
+import messages from './MessageStore'
+import count from './MessageCountStore'
 
 var store = createStore({
-  messages: MessageStore,
-  count: MessageCountStore
+  messages,
+  count
 })
 ```
