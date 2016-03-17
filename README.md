@@ -40,7 +40,9 @@ import MessageStore from './MessageStore'
 import MessageCountStore from './MessageCountStore'
 
 // will reduce to an object where the stores for messages and count are
-// composed into a larger object with the same shape. Only supports 1 level.
+// composed into a larger object with the same shape as the input.
+//
+// Only supports 1 level. Not recursive.
 var store = createStore({
   messages: MessageStore,
   count: MessageCountStore
